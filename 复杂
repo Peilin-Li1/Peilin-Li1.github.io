@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peilin Li | 个人网站</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --dark: #2b2d42;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --success: #4CAF50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            background: white;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: -5px;
+            left: 0;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            padding: 120px 5% 80px;
+            display: flex;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+        
+        .hero-content {
+            flex: 1;
+            padding-right: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 50%;
+            border: 8px solid rgba(255,255,255,0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        /* 按钮样式 */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin: 5px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+        }
+        
+        /* 章节样式 */
+        .section {
+            padding: 80px 5%;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--dark);
+        }
+        
+        .section-title span {
+            color: var(--primary);
+        }
+        
+        /* 技能卡片 */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .skill-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .skill-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        /* 项目网格 */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .project-image {
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+        }
+        
+        /* 时间线 */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        /* 联系表单 */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--radius);
+            font-family: inherit;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        /* 页脚 */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 100px 5% 40px;
+            }
+            
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+        }
+        
+        /* 动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        /* 模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* 进度条 */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <a href="#" class="logo">Peilin<span>.</span>Li</a>
+        <div class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">首页</a></li>
+            <li><a href="#about">关于</a></li>
+            <li><a href="#skills">技能</a></li>
+            <li><a href="#projects">项目</a></li>
+            <li><a href="#experience">经历</a></li>
+            <li><a href="#contact">联系</a></li>
+        </ul>
+    </nav>
+
+    <!-- 首页英雄区域 -->
+    <section id="home" class="hero fade-in">
+        <div class="hero-content">
+            <h1>我是 <span style="color: var(--accent)">Peilin Li</span></h1>
+            <h2 style="font-size: 2rem; margin-bottom: 1rem;">全栈开发者 & UI/UX设计师</h2>
+            <p>专注于创造优雅、高效的数字解决方案，将创新思维转化为卓越的产品体验。热衷于学习新技术，解决复杂问题。</p>
+            <div>
+                <a href="#projects" class="btn btn-primary">查看项目</a>
+                <a href="#contact" class="btn btn-outline">联系我</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div style="width: 300px; height: 300px; background: linear-gradient(45deg, var(--accent), var(--primary)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">
+                <i class="fas fa-code"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我 -->
+    <section id="about" class="section">
+        <h2 class="section-title">关于<span>我</span></h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fas fa-user"></i></div>
+                <h3>个人简介</h3>
+                <p>5年全栈开发经验，擅长React、Vue、Node.js等技术栈。热爱技术分享，喜欢探索前沿技术。</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3>教育背景</h3>
+                <p>计算机科学硕士，专注于人工智能和Web技术。持续学习最新的开发框架和设计理念。</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fas fa-bullseye"></i></div>
+                <h3>职业目标</h3>
+                <p>致力于创建有影响力的数字产品，通过技术创新改善用户体验，推动行业发展。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技能 -->
+    <section id="skills" class="section" style="background: var(--light);">
+        <h2 class="section-title">我的<span>技能</span></h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>前端开发</h3>
+                <p>HTML5/CSS3/JavaScript</p>
+                <div class="progress-bar"><div class="progress" style="width: 90%"></div></div>
+                <p>React/Vue.js</p>
+                <div class="progress-bar"><div class="progress" style="width: 85%"></div></div>
+                <p>TypeScript</p>
+                <div class="progress-bar"><div class="progress" style="width: 80%"></div></div>
+            </div>
+            <div class="skill-card">
+                <h3>后端开发</h3>
+                <p>Node.js/Python</p>
+                <div class="progress-bar"><div class="progress" style="width: 88%"></div></div>
+                <p>数据库设计</p>
+                <div class="progress-bar"><div class="progress" style="width: 85%"></div></div>
+                <p>API设计</p>
+                <div class="progress-bar"><div class="progress" style="width: 90%"></div></div>
+            </div>
+            <div class="skill-card">
+                <h3>设计工具</h3>
+                <p>Figma/Adobe XD</p>
+                <div class="progress-bar"><div class="progress" style="width: 75%"></div></div>
+                <p>UI/UX设计</p>
+                <div class="progress-bar"><div class="progress" style="width: 80%"></div></div>
+                <p>响应式设计</p>
+                <div class="progress-bar"><div class="progress" style="width: 95%"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目展示 -->
+    <section id="projects" class="section">
+        <h2 class="section-title">项目<span>作品</span></h2>
+        <div class="projects-grid">
+            <div class="project-card" onclick="showProject(1)">
+                <div class="project-image">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="project-content">
+                    <h3>电商平台</h3>
+                    <p>全栈电商解决方案，包含用户系统、支付集成、商品管理等功能。</p>
+                    <div style="margin-top: 1rem;">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">MongoDB</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card" onclick="showProject(2)">
+                <div class="project-image">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="project-content">
+                    <h3>数据分析仪表板</h3>
+                    <p>实时数据可视化平台，支持多种图表类型和数据源。</p>
+                    <div style="margin-top: 1rem;">
+                        <span class="tech-tag">Vue.js</span>
+                        <span class="tech-tag">D3.js</span>
+                        <span class="tech-tag">Express</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card" onclick="showProject(3)">
+                <div class="project-image">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="project-content">
+                    <h3>移动应用</h3>
+                    <p>跨平台移动应用，使用React Native开发，支持iOS和Android。</p>
+                    <div style="margin-top: 1rem;">
+                        <span class="tech-tag">React Native</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">Redux</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 工作经历 -->
+    <section id="experience" class="section" style="background: var(--light);">
+        <h2 class="section-title">工作<span>经历</span></h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="skill-card">
+                    <h3>高级全栈工程师</h3>
+                    <p style="color: var(--primary);">科技公司A · 2021-至今</p>
+                    <p>领导开发团队，负责核心系统架构设计和实现。</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="skill-card">
+                    <h3>前端开发工程师</h3>
+                    <p style="color: var(--primary);">互联网公司B · 2019-2021</p>
+                    <p>负责多个大型项目的前端架构和开发工作。</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="skill-card">
+                    <h3>软件开发实习生</h3>
+                    <p style="color: var(--primary);">创业公司C · 2018-2019</p>
+                    <p>参与产品开发全流程，学习敏捷开发方法。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系表单 -->
+    <section id="contact" class="section">
+        <h2 class="section-title">联系<span>我</span></h2>
+        <div class="contact-form">
+            <form id="contactForm">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="姓名" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="邮箱" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="主题" required>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" placeholder="留言内容" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">发送消息</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <h2>保持联系</h2>
+        <p>对我的工作感兴趣？欢迎随时联系！</p>
+        
+        <div class="social-links">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-codepen"></i></a>
+            <a href="mailto:example@email.com"><i class="fas fa-envelope"></i></a>
+        </div>
+        
+        <div style="margin-top: 2rem; opacity: 0.8;">
+            <p>© 2024 Peilin Li. 保留所有权利。</p>
+            <p style="font-size: 0.9rem; margin-top: 0.5rem;">
+                网站地址: https://Peilin-Li1.github.io
+            </p>
+        </div>
+    </footer>
+
+    <!-- 项目详情模态框 -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">项目详情</h2>
+            <div id="modalContent">
+                <!-- 动态内容 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.padding = '0.5rem 5%';
+                navbar.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.padding = '1rem 5%';
+                navbar.style.boxShadow = 'var(--shadow)';
+            }
+        });
+
+        // 响应式导航菜单
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 移动端关闭菜单
+                    if(window.innerWidth <= 768) {
+                        document.getElementById('navLinks').style.display = 'none';
+                    }
+                }
+            });
+        });
+
+        // 表单提交
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('感谢您的留言！我会尽快回复。');
+            this.reset();
+        });
+
+        // 项目模态框
+        const projects = {
+            1: {
+                title: "电商平台项目",
+                content: `
+                    <p><strong>项目描述：</strong>完整的B2C电商解决方案，支持多商家入驻。</p>
+                    <p><strong>技术栈：</strong> React, Node.js, MongoDB, Redis, Docker</p>
+                    <p><strong>功能特点：</strong></p>
+                    <ul>
+                        <li>用户认证与权限管理</li>
+                        <li>商品搜索与推荐系统</li>
+                        <li>购物车与订单管理</li>
+                        <li>支付网关集成</li>
+                        <li>后台管理系统</li>
+                    </ul>
+                `
+            },
+            2: {
+                title: "数据分析仪表板",
+                content: `
+                    <p><strong>项目描述：</strong>企业级数据可视化分析平台。</p>
+                    <p><strong>技术栈：</strong> Vue.js, D3.js, Express, PostgreSQL</p>
+                    <p><strong>功能特点：</strong></p>
+                    <ul>
+                        <li>实时数据监控</li>
+                        <li>自定义图表生成</li>
+                        <li>数据导出功能</li>
+                        <li>多数据源支持</li>
+                        <li>响应式设计</li>
+                    </ul>
+                `
+            },
+            3: {
+                title: "移动应用开发",
+                content: `
+                    <p><strong>项目描述：</strong>跨平台社交健身应用。</p>
+                    <p><strong>技术栈：</strong> React Native, Firebase, Redux</p>
+                    <p><strong>功能特点：</strong></p>
+                    <ul>
+                        <li>用户社交功能</li>
+                        <li>健身计划定制</li>
+                        <li>进度追踪</li>
+                        <li>实时消息</li>
+                        <li>推送通知</li>
+                    </ul>
+                `
+            }
+        };
+
+        function showProject(id) {
+            const project = projects[id];
+            document.getElementById('modalTitle').textContent = project.title;
+            document.getElementById('modalContent').innerHTML = project.content;
+            document.getElementById('projectModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('projectModal').style.display = 'none';
+        }
+
+        // 点击模态框外部关闭
+        window.onclick = function(event) {
+            const modal = document.getElementById('projectModal');
+            if(event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // 滚动动画
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // 观察所有章节
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+
+        // 技能标签样式
+        const style = document.createElement('style');
+        style.textContent = `
+            .tech-tag {
+                display: inline-block;
+                background: var(--primary);
+                color: white;
+                padding: 4px 12px;
+                border-radius: 20px;
+                font-size: 0.8rem;
+                margin-right: 5px;
+                margin-bottom: 5px;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
